@@ -1,0 +1,21 @@
+<section>
+    <div>
+        <div>
+            <h2>Cadastrar novo Usuario</h2>
+            <span>Para incluir um novo usuario, preencha os dados abaixo</span>
+            <span><strong>* Campos obrigatórios</strong></span>
+        </div>
+    </div>
+</section>
+
+<section>
+
+    <form ng-controller="CreateUsuarioController as createCtrl" ng-submit="createCtrl.addUsuario()">
+        <input type="text" ng-model="createCtrl.usuario.email" placeholder="Entre com o email">
+        <input type="text" ng-model="createCtrl.usuario.nickName" placeholder="Entre com o nickName">
+        <input type="text" ng-model="createCtrl.usuario.password" placeholder="Entre com o password">
+
+        <input type="submit" value="Cadastrar">
+    </form>
+
+</section>
