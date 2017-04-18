@@ -11,6 +11,11 @@
 
     <artifactId>example-application</artifactId>
 
+    <properties>
+        <docker.image.prefix>blogaccesstage</docker.image.prefix>
+        <docker-maven-plugin.dockerDirectory>${project.basedir}/src/main/docker</docker-maven-plugin.dockerDirectory>
+    </properties>
+
     <dependencies>
         <!-- INTERNAL -->
         <dependency>
@@ -41,6 +46,39 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <skipDockerBuild>false</skipDockerBuild>
+                    <imageName>spring-cloud-example</imageName>
+                    <dockerDirectory>${docker-maven-plugin.dockerDirectory}</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>

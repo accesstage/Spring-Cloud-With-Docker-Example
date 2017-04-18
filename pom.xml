@@ -23,18 +23,35 @@
         <java.version>1.8</java.version>
 
         <!-- SPRING BOOT VERSION -->
-        <spring.boot.version>1.4.2.RELEASE</spring.boot.version>
+        <spring-boot.version>1.5.2.RELEASE</spring-boot.version>
+
+        <!-- SPRING CLOUD VERSION -->
+        <spring-cloud.version>Brixton.RELEASE</spring-cloud.version>
 
         <!-- OTHERS SPRING'S VERSIONS -->
         <spring-data.version>1.13.0.M1</spring-data.version>
 
         <!-- MAVEN COMPILER PLUGIN VERSION -->
-        <maven.compiler.plugin.version>3.6.0</maven.compiler.plugin.version>
+        <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
 
         <!-- LOMBOK VERSION -->
         <lombok.version>1.16.10</lombok.version>
+
+        <!-- APACHE HTTP CLIENT VERSION -->
         <httpclient.version>4.5.2</httpclient.version>
+
+        <!-- MAVEN RELEASE PLUGIN VERSION -->
+        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+
+        <!-- MAVEN DOCKER PLUGIN VERSION -->
+        <docker-maven-plugin.version>0.4.13</docker-maven-plugin.version>
     </properties>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.2.RELEASE</version>
+    </parent>
 
     <dependencyManagement>
         <dependencies>
@@ -68,9 +85,9 @@
             <!-- BOM -->
             <!-- SPRING -->
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.version}</version>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -82,6 +99,8 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
             </dependency>
+
+            <!-- APACHE HTTP CLIENT VERSION -->
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
@@ -110,14 +129,21 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring.boot.version}</version>
+                    <version>${spring-boot.version}</version>
                 </plugin>
 
                 <!-- MAVEN COMPILER PLUGIN -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven.compiler.plugin.version}</version>
+                    <version>${maven-compiler-plugin.version}</version>
+                </plugin>
+
+                <!-- DOCKER COMPILER PLUGIN -->
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -132,6 +158,26 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+
+            <!-- MAVEN RELEASE PLUGIN -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release-plugin.version}</version>
+                <configuration>
+                    <allowTimestampedSnapshots>true</allowTimestampedSnapshots>
+                </configuration>
+            </plugin>
+
+            <!-- DOCKER COMPILER PLUGIN -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <skipDockerBuild>true</skipDockerBuild>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
